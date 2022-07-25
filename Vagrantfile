@@ -4,7 +4,7 @@
 Vagrant.configure("2") do |config|
   config.vm.define "master" do |master|
     master.vm.box = "geerlingguy/centos7"
-    master.vm.network "private_network", type: "static", ip: "192.168.99.10"
+    master.vm.network "private_network", type: "static", ip: "192.168.56.10"
     master.vm.hostname = "master"
     master.vm.provider "virtualbox" do |v|
       v.name = "master"
@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
     end
     master.vm.provision :shell do |shell|
       shell.path = "install_kubernetes.sh"
-      shell.args = ["master", "192.168.99.10"]
+      shell.args = ["master", "192.168.56.10"]
     end
   end
   workers=2
@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
   (1..workers).each do |i|
     config.vm.define "worker#{i}" do |worker|
       worker.vm.box = "geerlingguy/centos7"
-      worker.vm.network "private_network", type: "static", ip: "192.168.99.10#{i}"
+      worker.vm.network "private_network", type: "static", ip: "192.168.56.10#{i}"
       worker.vm.hostname = "worker#{i}"
       worker.vm.provider "virtualbox" do |v|
         v.name = "worker#{i}"
