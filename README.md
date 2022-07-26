@@ -13,7 +13,7 @@ vagrant plugin install vagrant-hostsupdater
 
 Deploy your cluster with the simple command line : vagrant up
 
-Connect to the deployed VM : vagrant ssh <stack name>
+Connect to the deployed VM with the command:  vagrant ssh <stack name>
   
-Delete the stack with command:  vagrant delete <stack name>
+Delete the stack with the command:  vagrant delete <stack name>
   
