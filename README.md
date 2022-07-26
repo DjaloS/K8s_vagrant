@@ -9,11 +9,11 @@ install vagrant and virtualbox on your machine
 Install vagrant-hostsupdater plugin with the command :
 vagrant plugin install vagrant-hostsupdater
 
-# Usage/Examples
+# step 3: Usage/Examples
 
 To provision the cluster, execute the following commands.
 
-git clone https://github.com/ahmadjubair33/vagrant-kubernetes.git
+git clone https://github.com/DjaloS/K8s_vagrant.git
 cd vagrant-kubeadm-kubernetes
 vagrant up
 
