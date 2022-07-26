@@ -14,7 +14,9 @@ vagrant plugin install vagrant-hostsupdater
 To provision the cluster, execute the following commands.
 
 git clone https://github.com/DjaloS/K8s_vagrant.git
+
 cd K8s_vagrant
+
 vagrant up
 
 
