@@ -9,11 +9,16 @@ install vagrant and virtualbox on your machine
 Install vagrant-hostsupdater plugin with the command :
 vagrant plugin install vagrant-hostsupdater
 
-# Step 3: Deploy your cluster (stack) 
+# Usage/Examples
 
-Deploy your cluster with the simple command line : vagrant up
+To provision the cluster, execute the following commands.
 
-# Connect to the deployed VM with the command:  
+git clone https://github.com/ahmadjubair33/vagrant-kubernetes.git
+cd vagrant-kubeadm-kubernetes
+vagrant up
+
+
+# Connect to the deployed VM with the following command:  
 
 vagrant ssh "the name of your VM"
 
