@@ -1,10 +1,5 @@
 
 #!/bin/bash
-export http_proxy=http://proxypac.si.francetelecom.fr:8080
-export https_proxy=http://proxypac.si.francetelecom.fr:8080
-export ftp_proxy=http://proxypac.si.francetelecom.fr:8080
-
-export no_proxy=localhost,127.0.0.0/8,192.168.0.0/16,10.192.177.234
 yum -y update
 yum -y install epel-release
 
