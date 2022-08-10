@@ -1,6 +1,10 @@
 
 #!/bin/bash
+export http_proxy=http://proxypac.si.francetelecom.fr:8080
+export https_proxy=http://proxypac.si.francetelecom.fr:8080
+export ftp_proxy=http://proxypac.si.francetelecom.fr:8080
 
+export no_proxy=localhost,127.0.0.0/8,192.168.0.0/16,10.192.177.234
 yum -y update
 yum -y install epel-release
 
@@ -8,7 +12,7 @@ yum -y install epel-release
 yum -y install ansible
 # retrieve ansible code
 yum -y install git
-rm -Rf DjaloS || echo "previous folder removed"
+rm -rf DjaloS || echo "previous folder removed"
 git clone https://github.com/DjaloS/K8s_vagrant.git
 cd K8s_vagrant
 ansible-galaxy install -r requirements.yml
