@@ -27,9 +27,9 @@ vagrant delete "name of your stack or VM"
 
 # les fichier concerneres:
 
-_Vagrantfile_
-_requirements.yml_
-_install_kubernetes.yml_
+- _Vagrantfile_
+- _requirements.yml_
+- _install_kubernetes.yml_
 
 # Vagrantfile
 
