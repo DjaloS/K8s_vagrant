@@ -53,20 +53,20 @@ Les outils indispensables pour le cluster Kubernetes seront installés et config
 yum -y update
 yum -y install epel-release
 
-# install ansible
+# installation d'ansible
 yum -y install ansible
-# retrieve ansible code
+# récupération du code ansible
 yum -y install git
 rm -rf DjaloS || echo "previous folder removed"
 git clone https://github.com/DjaloS/K8s_vagrant.git
 cd K8s_vagrant
-ansible-galaxy install -r requirements.yml
+ansible-galaxy install -r requirements.yml   ## installation des roles docker, kubernetes ...
 if [ $1 == "master" ]
 then
-        ansible-playbook install_kubernetes.yml --extra-vars "kubernetes_role=$1 kubernetes_apiserver_advertise_address=$2"
+        ansible-playbook install_kubernetes.yml --extra-vars "kubernetes_role=$1 kubernetes_apiserver_advertise_address=$2" ## initilisation du master
         echo "###################################################"
         echo "For this Stack, you will use $(ip -f inet addr show enp0s8 | sed -En -e 's/.*inet ([0-9.]+).*/\1/p') IP Address"
-        echo "You need to be root to use kubectl in $(ip -f inet addr show enp0s8 | sed -En -e 's/.*inet ([0-9.]+).*/\1/p') VM (run 'sudo su -' to become root and then use kubectl as you want)"
+        echo "You need to be root to use kubectl in $(ip -f inet addr show enp0s8 | sed -En -e 's/.*inet ([0-9.]+).*/\1/p') VM (run 'sudo su -' to become root and then use kubectl as you want)"    
         echo "###################################################"
 else
         ansible-playbook install_kubernetes.yml --extra-vars "kubernetes_role=$1 kubernetes_apiserver_advertise_address=$2 kubernetes_join_command='kubeadm join {{ kubernetes_apiserver_advertise_address }}:6443 --ignore-preflight-errors=all --token={{ token }}  --discovery-token-unsafe-skip-ca-verification'"
@@ -75,7 +75,7 @@ fi
 ```
 
 Ce script install d'abord les outils ansible, git ainsique les packages epel-release. Ensuite il git clone le depôt git, ce positione et install prepare la machine en executant la commande ansible-galaxy install -r requirements.yml qui install les roles nécessaires (voir requirements.yml). cette tâche est effectué sur cahque machine. 
-Ansible galaxy est c'est un depot dans lequel ansibel va recuperer les rôles (preciser dans le fichier **requirements.yml**) : **pip, docker et kubernetes**.
+Ansible galaxy est c'est un depot dans lequel ansibel va recuperer les rôles (preciser dans le fichier **requirements.yml**) : **docker kubernetes...**.
 
 Il execute sur le master la première commande qui initialise le nœud maître  Kubernetes (kubeadm init) ou il est spécifié en tant que paramètres, l'IP du serveur API, le nom du cluster, et la plage IP des pods. Une fois le nœud master initialisé, l'étape suivante consiste à gérer la partie réseau du cluster de manière à connecter les divers modules sur les différents nœuds du cluster. Pour cela, il install le plugin CNI (Container Network Interface) weave net. 
 
