@@ -34,11 +34,10 @@ Si on exécute le Vagrantfile, nous obtiendrons la configuration suivante sur no
  - Création d'un réseau Virtualbox HOST ONLY, utilisé pour accéder au master et worker Kubernetes depuis notre machine hôte, avec notamment :
 
         Le master nommé master et possédant l'ip 192.168.56.10
-        Le worker nommé worker-1 et possédant l'ip 192.168.56.11
-        Le worker nommé worker-2 et possédant l'ip 192.168.56.12
-        Le worker nommé worker-3 et possédant l'ip 192.168.56.13
+        Le worker nommé worker-1 et possédant l'ip 192.168.56.101
+        Le worker nommé worker-2 et possédant l'ip 192.168.56.102
+        Le worker nommé worker-3 et possédant l'ip 192.168.56.103
         
-Les connexions internes entre les PODs Kubernetes se passeront depuis un réseau privé sur la plage IP 192.168.0.0/16. Ces adresses IPs ne seront pas accessibles de l'extérieur du cluster Kubernetes et changeront lorsque les PODs seront détruits et créés.
 
 Les outils indispensables pour le cluster Kubernetes seront installés et configurées par le scripte install_kubernetes.s et du playbook ansible install_kubernetes.yml comme on peut le voir ci-dessous:
 
@@ -67,11 +66,17 @@ else
         echo "For this Stack, you will use $(ip -f inet addr show enp0s8 | sed -En -e 's/.*inet ([0-9.]+).*/\1/p') IP Address"
 fi
 ```
-ce script install d'abord les outils ansible, git ainsique les packages epel-release. Ensuite il git clone le depôt git, ce positione et install prepare la machine en executant la commande ansible-galaxy install -r requirements.yml qui install les roles nécessaires (voir requirements.yml). cette tâche est effectué sur cahque machine. 
 
-il execute sur le master la première commande qui initialise le nœud maître  Kubernetes (kubeadm init) ou il est spécifié en tant que paramètres, l'IP du serveur API, le nom du cluster, et la plage IP des pods. Une fois le nœud master initialisé, l'étape suivante consiste à gérer la partie réseau du cluster de manière à connecter les divers modules sur les différents nœuds du cluster. Pour cela, il install le plugin CNI (Container Network Interface) weave net. 
+Ce script install d'abord les outils ansible, git ainsique les packages epel-release. Ensuite il git clone le depôt git, ce positione et install prepare la machine en executant la commande ansible-galaxy install -r requirements.yml qui install les roles nécessaires (voir requirements.yml). cette tâche est effectué sur cahque machine. 
 
-la commande du else fait permet de faire la joinction des workers nodes au master à travers le token preciser dans le playbook install_kubernetes.yml.
+Il execute sur le master la première commande qui initialise le nœud maître  Kubernetes (kubeadm init) ou il est spécifié en tant que paramètres, l'IP du serveur API, le nom du cluster, et la plage IP des pods. Une fois le nœud master initialisé, l'étape suivante consiste à gérer la partie réseau du cluster de manière à connecter les divers modules sur les différents nœuds du cluster. Pour cela, il install le plugin CNI (Container Network Interface) weave net. 
+
+La commande du else fait permet de faire la joinction des workers nodes au master à travers le token preciser dans le playbook install_kubernetes.yml.
+
+Après chaque if, il affiche l'IP de la machine et quelques instructions pratiques.
+
+Les connexions internes entre les PODs Kubernetes se passeront depuis un réseau privé sur la plage IP 192.168.0.0/16. Ces adresses IPs ne seront pas accessibles de l'extérieur du cluster Kubernetes et changeront lorsque les PODs seront détruits et créés.
+
 
 ```yaml
 
