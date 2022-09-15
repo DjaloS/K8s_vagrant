@@ -3,8 +3,8 @@ set up kubernetes cluser with Vagrant
 
 # **Prérequis**
 il faut installer au préalable les outils suivants:
- [Virtualbox]
- [vagrant]
+ - Virtualbox
+ - vagrant
  
  # installation du plugin vagrant
 ```shell
@@ -25,7 +25,14 @@ vagrant ssh "the name of your VM"
 vagrant delete "name of your stack or VM"
 ```
 
+# les fichier concerneres:
+
+_Vagrantfile_
+_requirements.yml_
+_install_kubernetes.yml_
+
 # Vagrantfile
+
 C'est à partir du fichier Vagrantfile que toute la procédure débute. Ce fichier décrit comment les machines seront configurées et provisionnées.
 Merci de de consulter le Vagrantfile pour plus d'information.
 Si on exécute le Vagrantfile, nous obtiendrons la configuration suivante sur nos VMs :
@@ -68,7 +75,7 @@ fi
 ```
 
 Ce script install d'abord les outils ansible, git ainsique les packages epel-release. Ensuite il git clone le depôt git, ce positione et install prepare la machine en executant la commande ansible-galaxy install -r requirements.yml qui install les roles nécessaires (voir requirements.yml). cette tâche est effectué sur cahque machine. 
-Ansible galaxy est c'est un depot dans lequel ansibel va recuperer les rôles : **pip, docker et kubernetes**.
+Ansible galaxy est c'est un depot dans lequel ansibel va recuperer les rôles (preciser dans le fichier requirements.yml) : **pip, docker et kubernetes**.
 
 Il execute sur le master la première commande qui initialise le nœud maître  Kubernetes (kubeadm init) ou il est spécifié en tant que paramètres, l'IP du serveur API, le nom du cluster, et la plage IP des pods. Une fois le nœud master initialisé, l'étape suivante consiste à gérer la partie réseau du cluster de manière à connecter les divers modules sur les différents nœuds du cluster. Pour cela, il install le plugin CNI (Container Network Interface) weave net. 
 
