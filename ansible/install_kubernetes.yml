@@ -42,4 +42,4 @@
   roles:
     - role: geerlingguy.pip
     - role: geerlingguy.docker
-    - role: ansible-role-kubernetes
+    - role: DjaloS.kubernetes
