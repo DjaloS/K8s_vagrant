@@ -31,7 +31,7 @@ Vagrant.configure("2") do |config|
       end
       worker.vm.provision :shell do |shell|
         shell.path = "install_kubernetes.sh"
-        shell.args = ["node", "192.168.99.10"]
+        shell.args = ["node", "192.168.56.10"]
       end
     end
   end
