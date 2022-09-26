@@ -1,0 +1,8 @@
+# Install a role for pip
+- src: geerlingguy.pip
+
+# Install a role for docker
+- src: geerlingguy.docker
+
+# install kubernetes avec plugin calico
+- src: https://github.com/DjaloS/DjaloS.kubernetes.git
