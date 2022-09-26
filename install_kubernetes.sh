@@ -10,7 +10,7 @@ yum -y install git
 rm -rf DjaloS || echo "previous folder removed"
 git clone https://github.com/DjaloS/K8s_vagrant.git
 cd K8s_vagrant/ansible
-ansible-galaxy install -r /rolesrequirements.yml
+ansible-galaxy install -r roles/requirements.yml
 if [ $1 == "master" ]
 then
         ansible-playbook install_kubernetes.yml --extra-vars "kubernetes_role=$1 kubernetes_apiserver_advertise_address=$2"
