@@ -41,9 +41,9 @@ Si on exécute le Vagrantfile, nous obtiendrons la configuration suivante sur no
  - Création d'un réseau Virtualbox HOST ONLY, utilisé pour accéder au master et worker Kubernetes depuis notre machine hôte, avec notamment :
 
         Le master nommé master et possédant l'ip 192.168.56.10
-        Le worker nommé worker-1 et possédant l'ip 192.168.56.101
-        Le worker nommé worker-2 et possédant l'ip 192.168.56.102
-        Le worker nommé worker-3 et possédant l'ip 192.168.56.103
+        Le worker nommé worker1 et possédant l'ip 192.168.56.101
+        Le worker nommé worker2 et possédant l'ip 192.168.56.102
+        Le worker nommé worker3 et possédant l'ip 192.168.56.103
         
 
 Les outils indispensables pour le cluster Kubernetes seront installés et configurées par le scripte install_kubernetes.s et du playbook ansible install_kubernetes.yml comme on peut le voir ci-dessous:
@@ -75,15 +75,16 @@ fi
 ```
 
 Ce script install d'abord les outils ansible, git ainsique les packages epel-release. Ensuite il git clone le depôt git, ce positione et install prepare la machine en executant la commande ansible-galaxy install -r requirements.yml qui install les roles nécessaires (voir requirements.yml). cette tâche est effectué sur cahque machine. 
-Ansible galaxy est c'est un depot dans lequel ansibel va recuperer les rôles (preciser dans le fichier **requirements.yml**) : **docker kubernetes...**.
+Ansible galaxy est c'est un depot dans lequel ansibel va recuperer les rôles (preciser dans le fichier **requirements.yml**) : **docker,kubernetes...**.
 
-Il execute sur le master la première commande qui initialise le nœud maître  Kubernetes (kubeadm init) ou il est spécifié en tant que paramètres, l'IP du serveur API, le nom du cluster, et la plage IP des pods. Une fois le nœud master initialisé, l'étape suivante consiste à gérer la partie réseau du cluster de manière à connecter les divers modules sur les différents nœuds du cluster. Pour cela, il install le plugin CNI (Container Network Interface) weave net. 
+Il execute sur le master la première commande du if qui fait appel au role permettant d'installer les dependence possible à savoir pip, docker et pour finir kubernetes. dan sl'exection de cette, il initialise le nœud maître  Kubernetes ou il est spécifié en tant que paramètres, l'IP du serveur API, le nom du cluster, et la plage IP des pods. Une fois le nœud master initialisé, l'étape suivante consiste à gérer la partie réseau du cluster de manière à connecter les divers modules sur les différents nœuds du cluster. Pour cela, il install le plugin CNI (Container Network Interface) calico. 
 
-La commande du else fait permet de faire la joinction des workers nodes au master à travers le token preciser dans le playbook install_kubernetes.yml.
+La commande du else permet quant à elle, de faire la joinction des workers nodes au master à travers le token preciser dans le playbook install_kubernetes.yml.
 
-Après chaque if, il affiche l'IP de la machine et quelques instructions pratiques.
+Après avoir rélasés les taches sur chaque machines , il affiche l'IP de la machine et des instructions pratiques.
 
 Les connexions internes entre les PODs Kubernetes se passeront depuis un réseau privé sur la plage IP 192.168.0.0/16. Ces adresses IPs ne seront pas accessibles de l'extérieur du cluster Kubernetes et changeront lorsque les PODs seront détruits et créés.
+
 
 
 ```yaml
