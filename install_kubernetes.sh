@@ -7,7 +7,7 @@ yum -y install epel-release
 yum -y install ansible
 # retrieve ansible code
 yum -y install git
-rm -rf DjaloS || echo "previous folder removed"
+rm -rf K8s_vagrant || echo "previous folder removed"
 git clone https://github.com/DjaloS/K8s_vagrant.git
 cd K8s_vagrant/ansible
 ansible-galaxy install -r roles/requirements.yml
