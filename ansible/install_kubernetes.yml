@@ -1,6 +1,6 @@
 - hosts: localhost
-  become: true
-
+  become: true   
+## pour passer en mode sudo 
   vars:
     pip_install_packages:
       - name: docker
