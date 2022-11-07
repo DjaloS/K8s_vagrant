@@ -1,7 +1,7 @@
 - hosts: localhost
   become: true   
   ## definition du token permettant auw workers de contacter les master
-  ## installation des packages python pour docker (permettant à ansible de piloter docker grace au librairie python)
+  ## installation des packages python pour docker (permettant à ansible de piloter docker grâce aux librairies python)
   vars:
     pip_install_packages:  
       - name: docker
